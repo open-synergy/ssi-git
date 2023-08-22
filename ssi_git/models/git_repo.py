@@ -15,3 +15,7 @@ class GitRepo(models.Model):
         comodel_name="git_repo_type",
         required=True,
     )
+    url = fields.Char(
+        string="URL",
+        required=True,
+    )

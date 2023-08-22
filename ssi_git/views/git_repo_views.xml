@@ -39,6 +39,7 @@
         <data>
             <xpath expr="//field[@name='active']" position="after">
                 <field name="type_id" />
+                <field name="url" widget="url" />
             </xpath>
         </data>
     </field>
