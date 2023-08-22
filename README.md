@@ -18,7 +18,7 @@ Available addons
 ----------------
 addon | version | maintainers | summary
 --- | --- | --- | ---
-[ssi_git](ssi_git/) | 14.0.2.0.0 |  | Git
+[ssi_git](ssi_git/) | 14.0.2.1.0 |  | Git
 
 [//]: # (end addons)
 
