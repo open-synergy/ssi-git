@@ -13,6 +13,15 @@
         />
 </record>
 
+<record id="git_user_group" model="res.groups">
+    <field name="name">Git User</field>
+    <field name="category_id" ref="git_configurator_module_category" />
+    <field
+            name="users"
+            eval="[(4, ref('base.user_root')), (4, ref('base.user_admin'))]"
+        />
+</record>
+
 <record id="git_repo_group" model="res.groups">
     <field name="name">Git Repository</field>
     <field name="category_id" ref="git_configurator_module_category" />
@@ -24,6 +33,24 @@
 
 <record id="git_branch_group" model="res.groups">
     <field name="name">Git Branch</field>
+    <field name="category_id" ref="git_configurator_module_category" />
+    <field
+            name="users"
+            eval="[(4, ref('base.user_root')), (4, ref('base.user_admin'))]"
+        />
+</record>
+
+<record id="git_script_group" model="res.groups">
+    <field name="name">Git Script</field>
+    <field name="category_id" ref="git_configurator_module_category" />
+    <field
+            name="users"
+            eval="[(4, ref('base.user_root')), (4, ref('base.user_admin'))]"
+        />
+</record>
+
+<record id="generate_branch_group" model="res.groups">
+    <field name="name">Generate Branches</field>
     <field name="category_id" ref="git_configurator_module_category" />
     <field
             name="users"

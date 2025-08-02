@@ -6,6 +6,9 @@ from . import (
     res_company,
     res_config_settings,
     git_repo_type,
+    git_user,
     git_repo,
     git_branch,
+    git_script,
+    git_script_parameter,
 )
