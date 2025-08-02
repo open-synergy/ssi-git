@@ -6,7 +6,7 @@ import os
 from datetime import date, datetime, time
 
 from odoo import fields, models
-from odoo.exceptions import UserError, ValidationError, Warning
+from odoo.exceptions import UserError, ValidationError
 
 try:
     import git
@@ -94,7 +94,6 @@ class GitScript(models.Model):
                     "env": self.env,
                     "UserError": UserError,
                     "ValidationError": ValidationError,
-                    "Warning": Warning,
                     "datetime": datetime,
                     "date": date,
                     "time": time,
