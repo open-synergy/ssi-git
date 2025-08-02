@@ -72,7 +72,7 @@ class IrActionsServer(models.Model):
             if action.state == "run_git_script" and action.script_id:
                 model = self.env[action.model_name]
                 active_id = self._context.get("active_id")
-                active_ids = self._context.get("active_ids")
+                active_ids = self._context.get("active_ids", [])
                 context_env = {
                     "self": self,
                     "model": model,

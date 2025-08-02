@@ -1,10 +1,12 @@
 # Copyright 2025 OpenSynergy Indonesia
 # Copyright 2025 PT. Simetri Sinergi Indonesia
 # License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl).
+import logging
 import os
+from datetime import date, datetime, time
 
 from odoo import fields, models
-from odoo.exceptions import UserError
+from odoo.exceptions import UserError, ValidationError, Warning
 
 try:
     import git
@@ -90,6 +92,14 @@ class GitScript(models.Model):
                 code = compile(f.read(), self.file_path, "exec")
                 exec_env = {
                     "env": self.env,
+                    "UserError": UserError,
+                    "ValidationError": ValidationError,
+                    "Warning": Warning,
+                    "datetime": datetime,
+                    "date": date,
+                    "time": time,
+                    "log": logging.getLogger(__name__),
+                    "logger": logging.getLogger(__name__),
                 }
                 if context_dict:
                     exec_env.update(context_dict)
