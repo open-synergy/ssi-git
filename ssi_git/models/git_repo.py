@@ -194,7 +194,7 @@ class GitRepo(models.Model):
         except Exception as e:
             raise UserError(_("Git operation error: %s") % str(e))
 
-        self._populate_branch()
+        self._populate_branch(repo)
 
     def list_files_in_branch(self, full_path, branch_name):
         repo = git.Repo(full_path)
