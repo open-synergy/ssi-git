@@ -1,2 +1,0 @@
-id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
-access_git_script_parameter_value_configurator,git_script_parameter_value - configurator,model_git_script_parameter_value,,1,1,1,1

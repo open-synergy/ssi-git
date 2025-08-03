@@ -14,7 +14,6 @@
         "ssi_git",
     ],
     "data": [
-        "security/ir.model.access.csv",
         "views/ir_actions_views.xml",
     ],
     "demo": [],

@@ -1,11 +1,17 @@
 # Copyright 2025 OpenSynergy Indonesia
 # Copyright 2025 PT. Simetri Sinergi Indonesia
 # License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl).
-from odoo import api, fields, models
+from odoo import fields, models
 
 
 class IrActionsServer(models.Model):
-    _inherit = "ir.actions.server"
+    _name = "ir.actions.server"
+    _inherit = [
+        "ir.actions.server",
+        "mixin.git_script.parameter_value",
+    ]
+    _parameter_value_create_page = True
+    _parameter_value_page_xpath = "//page[@name='script']"
 
     state = fields.Selection(
         selection_add=[("run_git_script", "Run Code On Git Repo")],
@@ -31,40 +37,6 @@ class IrActionsServer(models.Model):
         required=False,
         copy=False,
     )
-    parameter_value_ids = fields.One2many(
-        string="Script Parameters",
-        comodel_name="git_script.parameter_value",
-        inverse_name="server_action_id",
-    )
-
-    @api.onchange(
-        "script_id",
-    )
-    def _onchange_script_id(self):
-        if self.script_id:
-            # Dapatkan parameter_id yang sudah ada
-            existing_param_ids = set(self.parameter_value_ids.mapped("parameter_id.id"))
-
-            # Hanya tambahkan parameter yang belum ada
-            new_parameters = []
-            for param in self.script_id.parameter_ids:
-                if param.id not in existing_param_ids:
-                    new_parameters.append(
-                        (
-                            0,
-                            0,
-                            {
-                                "parameter_id": param.id,
-                                "value": param.default_value or "",
-                            },
-                        )
-                    )
-
-            # Tambahkan parameter baru ke yang sudah ada
-            if new_parameters:
-                self.parameter_value_ids = [
-                    (4, pv.id) for pv in self.parameter_value_ids
-                ] + new_parameters
 
     def run(self):
         res = super().run()

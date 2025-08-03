@@ -9,32 +9,28 @@
     <field name="priority" eval="1" />
     <field name="inherit_id" ref="base.view_server_action_form" />
     <field name="arch" type="xml">
-        <xpath expr="//notebook" position="inside">
-            <page name="script" string="Scripts">
-                <group>
-                    <field
-                            name='repo_id'
-                            attrs="{'invisible': [('state', '!=', 'run_git_script')], 'required': [('state', '=', 'run_git_script')]}"
-                        />
-                    <field
-                            name='branch_id'
-                            attrs="{'invisible': [('state', '!=', 'run_git_script')], 'required': [('state', '=', 'run_git_script')]}"
-                        />
-                    <field
-                            name='script_id'
-                            attrs="{'invisible': [('state', '!=', 'run_git_script')], 'required': [('state', '=', 'run_git_script')]}"
-                        />
+        <xpath expr="//page[@name='security']" position="before">
+            <page
+                    name="script"
+                    string="Scripts"
+                    attrs="{'invisible': [('state', '!=', 'run_git_script')]}"
+                >
+                <group name="header" colspan="4" col="2">
+                    <group name="header_left" colspan="1" col="2">
+                        <field
+                                name='repo_id'
+                                attrs="{'required': [('state', '=', 'run_git_script')]}"
+                            />
+                        <field
+                                name='branch_id'
+                                attrs="{'required': [('state', '=', 'run_git_script')]}"
+                            />
+                        <field
+                                name='script_id'
+                                attrs="{'required': [('state', '=', 'run_git_script')]}"
+                            />
+                    </group>
                 </group>
-                <field
-                        name='parameter_value_ids'
-                        attrs="{'invisible': [('state', '!=', 'run_git_script')]}"
-                    >
-                    <tree editable="bottom">
-                        <field name="parameter_id" />
-                        <field name="type" />
-                        <field name="value" />
-                    </tree>
-                </field>
             </page>
         </xpath>
     </field>
