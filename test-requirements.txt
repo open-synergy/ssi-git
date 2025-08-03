@@ -1,0 +1,2 @@
+odoo14-ssi-master-data-mixin
+odoo14-ssi-decorator
