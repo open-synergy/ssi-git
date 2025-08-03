@@ -1,24 +1,26 @@
 # Copyright 2022 OpenSynergy Indonesia
 # Copyright 2022 PT. Simetri Sinergi Indonesia
 # License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl).
+import logging
 import os
+import shutil
 from datetime import timezone
 from urllib.parse import quote
 
-from odoo import _, fields, models, tools
+from odoo import _, fields, models
 from odoo.exceptions import UserError
+
+_logger = logging.getLogger(__name__)
 
 try:
     import git
 except ImportError:
-    raise ImportError(
-        "GitPython is required. " "Install it with: pip install GitPython"
-    )
+    _logger.debug("GitPython is required. Install it with: 'pip install GitPython'")
 
 try:
     pass
 except ImportError:
-    raise ImportError("pytz is required. " "Install it with: pip install pytz")
+    _logger.debug("GitPython is required. Install it with: 'pip install pytz'")
 
 
 class GitRepo(models.Model):
@@ -71,7 +73,7 @@ class GitRepo(models.Model):
     )
 
     def action_populate(self):
-        for record in self:
+        for record in self.sudo():
             record._populate()
             if record.can_cloning:
                 record._populate_script()
@@ -215,6 +217,7 @@ class GitRepo(models.Model):
         return file_list
 
     def _get_authentication(self):
+        self.ensure_one()
         token = self.git_user_id.git_token
         username = self.git_user_id.git_username
         if not token and not username:
@@ -223,24 +226,8 @@ class GitRepo(models.Model):
 
         return token, username
 
-    def _get_authentication_from_config(self):
-        ICP = self.env["ir.config_parameter"]
-        token = tools.config.get("git_token") or ICP.get_param("git_token", default="")
-        username = tools.config.get("git_username") or ICP.get_param(
-            "git_username", default=""
-        )
-        if not token and not username:
-            raise UserError(
-                _(
-                    "Please add the 'git_token' and 'git_username' "
-                    "in Odoo configuration file"
-                    " or system parameter."
-                )
-            )
-
-        return token, username
-
     def _get_auth_url(self, repo_url, token=None, username=None):
+        self.ensure_one()
         if token and repo_url.startswith("https://"):
             if username:
                 auth_part = f"{quote(username)}:{quote(token)}"
@@ -253,9 +240,8 @@ class GitRepo(models.Model):
         """
         Clean up repository path if needed
         """
+        self.ensure_one()
         try:
-            import shutil
-
             if os.path.exists(full_path):
                 # Check if it's a valid git repo
                 try:
@@ -326,27 +312,15 @@ class GitRepo(models.Model):
         """
         Convert datetime to user timezone if available, otherwise UTC
         """
+        self.ensure_one()
         if dt is None:
             return None
 
         try:
-            # Get user timezone from context or user preferences
-            user_tz = self._get_user_timezone()
-
             # If datetime is naive (no timezone info)
             if dt.tzinfo is None:
-                # If we have user timezone, assume dt is in user timezone and convert to UTC
-                if user_tz:
-                    import pytz
-
-                    user_timezone = pytz.timezone(user_tz)
-                    # Localize to user timezone first, then convert to UTC
-                    localized_dt = user_timezone.localize(dt)
-                    utc_dt = localized_dt.astimezone(timezone.utc)
-                    return utc_dt.replace(tzinfo=None)
-                else:
-                    # No user timezone, assume it's already UTC
-                    return dt
+                # No user timezone, assume it's already UTC
+                return dt
 
             # If datetime has timezone info
             if dt.tzinfo is not None:
@@ -360,27 +334,6 @@ class GitRepo(models.Model):
         except Exception:
             # Fallback: return original datetime if conversion fails
             return dt.replace(tzinfo=None) if dt.tzinfo else dt
-
-    def _get_user_timezone(self):
-        """
-        Get user timezone from context or user preferences
-        """
-        try:
-            # First try to get timezone from context
-            user_tz = self.env.context.get("tz")
-
-            # If not in context, get from current user preferences
-            if not user_tz:
-                user_tz = self.env.user.tz
-
-            # If still no timezone, try to get from company settings
-            if not user_tz:
-                user_tz = self.env.company.tz
-
-            return user_tz
-
-        except Exception:
-            return None
 
     def _prepare_branch_data(self, branch):
         self.ensure_one()

@@ -12,6 +12,7 @@
     "application": True,
     "depends": [
         "ssi_master_data_mixin",
+        "ssi_decorator",
     ],
     "data": [
         "security/ir_module_category_data.xml",
@@ -20,6 +21,7 @@
         "data/ir_sequence_data.xml",
         "data/sequence_template_data.xml",
         "menu.xml",
+        "templates/mixin_git_script_parameter_value_templates.xml",
         "views/res_config_settings_views.xml",
         "views/git_repo_type_views.xml",
         "views/git_user_views.xml",
@@ -28,4 +30,5 @@
         "views/git_script_views.xml",
     ],
     "demo": [],
+    "external_dependencies": {"python": ["pytz", "GitPython"]},
 }
