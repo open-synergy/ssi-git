@@ -48,13 +48,4 @@
             eval="[(4, ref('base.user_root')), (4, ref('base.user_admin'))]"
         />
 </record>
-
-<record id="git_script_parameter_value_group" model="res.groups">
-    <field name="name">Git Script Parameter Value</field>
-    <field name="category_id" ref="git_configurator_module_category" />
-    <field
-            name="users"
-            eval="[(4, ref('base.user_root')), (4, ref('base.user_admin'))]"
-        />
-</record>
 </odoo>
