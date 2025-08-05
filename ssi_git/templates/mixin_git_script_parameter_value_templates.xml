@@ -4,7 +4,7 @@
     <page
             string="Parameter Values"
             name="parameter_value"
-            groups="ssi_git.git_script_parameter_value_group"
+            groups="ssi_git.git_script_group"
         >
         <button
                 name="action_populate_parameter_value_ids"
