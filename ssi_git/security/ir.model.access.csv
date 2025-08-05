@@ -5,3 +5,11 @@ access_git_branch_configurator,git_branch - configurator,model_git_branch,git_br
 access_git_branch_all,git_branch - all,model_git_branch,,1,0,0,0
 access_git_repo_type_configurator,git_repo_type - configurator,model_git_repo_type,git_repo_type_group,1,1,1,1
 access_git_repo_type_all,git_repo_type - all,model_git_repo_type,,1,0,0,0
+access_git_user_configurator,git_user - configurator,model_git_user,git_user_group,1,1,1,1
+access_git_user_all,git_user - all,model_git_user,,1,0,0,0
+access_git_script_configurator,git_script - configurator,model_git_script,git_script_group,1,1,1,1
+access_git_script_all,git_script - all,model_git_script,,1,0,0,0
+access_git_script_parameter_configurator,git_script_parameter - configurator,model_git_script_parameter,git_script_group,1,1,1,1
+access_git_script_parameter_all,git_script_parameter - all,model_git_script_parameter,,1,0,0,0
+access_git_script_parameter_value_configurator,git_script_parameter_value - configurator,model_git_script_parameter_value,git_script_group,1,1,1,1
+access_git_script_parameter_value_all,git_script_parameter_value - all,model_git_script_parameter_value,,1,0,0,0

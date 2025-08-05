@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8" ?>
-<!-- Copyright 2023 OpenSynergy Indonesia
-     Copyright 2023 PT. Simetri Sinergi Indonesia
+<!-- Copyright 2025 OpenSynergy Indonesia
+     Copyright 2025 PT. Simetri Sinergi Indonesia
      License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl). -->
 <odoo>
-<record id="git_repo_type_view_search" model="ir.ui.view">
-    <field name="name">git_repo_type - search</field>
-    <field name="model">git_repo_type</field>
+<record id="git_user_view_search" model="ir.ui.view">
+    <field name="name">git_user - search</field>
+    <field name="model">git_user</field>
     <field
             name="inherit_id"
             ref="ssi_master_data_mixin.mixin_master_data_view_search"
@@ -16,9 +16,9 @@
     </field>
 </record>
 
-<record id="git_repo_type_view_tree" model="ir.ui.view">
-    <field name="name">git_repo_type -tree</field>
-    <field name="model">git_repo_type</field>
+<record id="git_user_view_tree" model="ir.ui.view">
+    <field name="name">git_user -tree</field>
+    <field name="model">git_user</field>
     <field name="inherit_id" ref="ssi_master_data_mixin.mixin_master_data_view_tree" />
     <field name="mode">primary</field>
     <field name="arch" type="xml">
@@ -27,34 +27,34 @@
     </field>
 </record>
 
-<record id="git_repo_type_view_form" model="ir.ui.view">
-    <field name="name">git_repo_type - form</field>
-    <field name="model">git_repo_type</field>
+<record id="git_user_view_form" model="ir.ui.view">
+    <field name="name">git_user - form</field>
+    <field name="model">git_user</field>
     <field name="inherit_id" ref="ssi_master_data_mixin.mixin_master_data_view_form" />
     <field name="mode">primary</field>
     <field name="arch" type="xml">
         <data>
             <xpath expr="//field[@name='active']" position="after">
-                <field name="can_cloning" widget="boolean_toggle" />
-                <field name="repo_type" />
+                <field name="git_username" />
+                <field name="git_token" password="true" />
             </xpath>
         </data>
     </field>
 </record>
 
-<record id="git_repo_type_action" model="ir.actions.act_window">
-    <field name="name">Repo Types</field>
+<record id="git_user_action" model="ir.actions.act_window">
+    <field name="name">Users</field>
     <field name="type">ir.actions.act_window</field>
-    <field name="res_model">git_repo_type</field>
+    <field name="res_model">git_user</field>
     <field name="view_mode">tree,form</field>
 </record>
 
 <menuitem
-        id="git_repo_type_menu"
-        name="Repo Types"
+        id="git_user_menu"
+        name="Users"
         parent="menu_git_configuration"
-        action="git_repo_type_action"
-        groups="git_repo_type_group"
+        action="git_user_action"
+        groups="git_user_group"
         sequence="110"
     />
 
