@@ -9,6 +9,7 @@ setuptools.setup(
     version=version,
     install_requires=[
         'odoo14-addon-ssi_git',
+        'odoo14-addon-ssi_git_server_action',
     ],
     classifiers=[
         'Programming Language :: Python',
