@@ -378,7 +378,6 @@ class GitRepo(models.Model):
             "repo_id": self.id,
             "branch_id": branch_id,
             "file_path": self.full_path + "/" + script_name,
-            "method_name": "-",
         }
 
     def _create_script(self, script_name, branch_id):

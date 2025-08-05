@@ -37,13 +37,6 @@ class GitScript(models.Model):
         help="Path to the script file in the repository, e.g., 'scripts/my_script.py'. "
         "This is relative to the root of the repository.",
     )
-    method_name = fields.Char(
-        string="Method Name",
-        required=True,
-        default="main",
-        help="Name of the method to execute in the script. "
-        "This is used to call a specific function within the script file.",
-    )
     parameter_ids = fields.One2many(
         string="Parameters",
         comodel_name="git_script.parameter",
@@ -102,10 +95,8 @@ class GitScript(models.Model):
                 }
                 if context_dict:
                     exec_env.update(context_dict)
-                return exec(code, exec_env)
-                # if self.method_name not in exec_env:
-                #     raise UserError(f"Function {self.method_name} not found.")
-                # return exec_env[self.method_name]()
+                    exec(code, exec_env)
+                    return exec_env.get("action")
 
         except git.exc.GitError as git_error:
             raise UserError(f"Git operation error: {git_error}")

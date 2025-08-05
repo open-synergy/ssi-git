@@ -54,5 +54,5 @@ class IrActionsServer(models.Model):
                 }
                 for param in action.parameter_value_ids:
                     context_env[param.parameter_id.name] = param.parse_value()
-                action.script_id._run(context_env)
+                res = action.script_id._run(context_env)
         return res

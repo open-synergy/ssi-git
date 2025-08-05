@@ -37,7 +37,6 @@
                 <field name="repo_id" />
                 <field name="branch_id" />
                 <field name="file_path" />
-                <field name="method_name" />
             </xpath>
             <xpath expr="//notebook" position="inside">
                 <page string="Parameters" name="parameters">
