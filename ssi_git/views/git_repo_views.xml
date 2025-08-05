@@ -37,9 +37,51 @@
     <field name="mode">primary</field>
     <field name="arch" type="xml">
         <data>
+            <xpath expr="//header" position="inside">
+                <button
+                        string="Populate"
+                        name="action_populate"
+                        type="object"
+                        icon="fa-cogs"
+                    />
+            </xpath>
             <xpath expr="//field[@name='active']" position="after">
                 <field name="type_id" />
+                <field name="repo_type" />
+                <field
+                        name="git_user_id"
+                        attrs="{'invisible': [('repo_type', '=', 'public')], 'required': [('repo_type', '=', 'private')]}"
+                    />
                 <field name="url" widget="url" />
+                <field name="can_cloning" widget="boolean_toggle" invisible="1" />
+                <field name="repo_path" />
+                <field name="full_path" force_save="1" />
+            </xpath>
+            <xpath expr="//page[@name='note']" position="before">
+                <page name="branches" string="Branches">
+                    <field name="branch_ids">
+                        <tree>
+                            <field name="code" />
+                            <field name="name" />
+                            <field name="last_commit_sha" />
+                            <field name="last_commit_message" />
+                            <field name="last_commit_date" />
+                            <field name="last_commit_author" />
+                        </tree>
+                    </field>
+                </page>
+                <page
+                        name="scripts"
+                        string="Scripts"
+                        attrs="{'invisible': [('can_cloning', '!=', True)]}"
+                    >
+                    <field name="script_ids">
+                        <tree>
+                            <field name="code" />
+                            <field name="name" />
+                        </tree>
+                    </field>
+                </page>
             </xpath>
         </data>
     </field>

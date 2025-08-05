@@ -25,6 +25,10 @@
         <data>
             <xpath expr="//field[@name='name']" position="after">
                 <field name="repo_id" />
+                <field name="last_commit_sha" />
+                <field name="last_commit_message" />
+                <field name="last_commit_date" />
+                <field name="last_commit_author" />
             </xpath>
         </data>
     </field>
@@ -39,6 +43,10 @@
         <data>
             <xpath expr="//field[@name='active']" position="after">
                 <field name="repo_id" />
+                <field name="last_commit_sha" />
+                <field name="last_commit_message" />
+                <field name="last_commit_date" />
+                <field name="last_commit_author" />
             </xpath>
         </data>
     </field>
@@ -51,13 +59,15 @@
     <field name="view_mode">tree,form</field>
 </record>
 
+<menuitem id="git_branch_root_menu" name="Branches" parent="menu_root_git" />
+
 <menuitem
         id="git_branch_menu"
         name="Branches"
-        parent="menu_root_git"
+        parent="git_branch_root_menu"
         action="git_branch_action"
         groups="git_branch_group"
-        sequence="20"
+        sequence="10"
     />
 
 </odoo>
